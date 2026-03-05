@@ -16,6 +16,7 @@ import java.util.Queue;
  *
  * if labledare asks to clean this shit, im not doing it....
  */
+
 public class CarWashState extends State {
     //----Machines available
 

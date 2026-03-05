@@ -27,9 +27,7 @@ public class State {
     }
 
     /**
-     * Notifies all observed objects that a stat change
-     * could have happend //View as of Writting this is not yet configured
-     *
+     * Notifies all observed objects that a state change
      *----
      * But it should update the state
      */
