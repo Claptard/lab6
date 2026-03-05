@@ -11,11 +11,8 @@ public class State {
     /**
      * Constructor settign everything in the state to its
      * default values,(time = 0... not running and an empty list of observers)
-     * @param time
-     * @param running
-     * @param observers
      */
-    public State(double time, boolean running, List<View> observers) {
+    public State() {
         this.time = 0.0;
         this.running = false;
         this.observers = new ArrayList<>();
