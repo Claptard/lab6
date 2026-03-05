@@ -37,11 +37,11 @@ public class ArriveEvent extends Event {
             cws.occupySlow();
             cws.addCarInSystem();
             double washTime = cws.nextSlowWashTime();
-            eventQueue.add(new LeaveEvent(cws.getTime() + washTime,eventQueue,carId, true, washTime));
+            eventQueue.add(new LeaveEvent(cws.getTime() + washTime,eventQueue,carId, false, washTime));
         }else if(!cws.isQueueFull()){
             //Machines are full but gets placed in queue
             cws.addCarInSystem();
-            cws.getWaitingCars().add(carId);
+            cws.getWaitingCars().add(new int[]{carId,(int) cws.getTime()});
         }else{
             //queue is full gets rejected
             cws.addRejectedCars();
@@ -49,6 +49,8 @@ public class ArriveEvent extends Event {
 
         double nextArrival = cws.getTime() + cws.nextArrivalTime();
         eventQueue.add(new ArriveEvent(nextArrival,eventQueue));
+
+        cws.setLastEvent("Arrive",carId,false);
     }
 
     /**Getter for carID

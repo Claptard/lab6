@@ -26,7 +26,7 @@ public class CarWashState extends State {
 
     //----queue variables
     /**Setting up waiting cars and the max quesize allowed*/
-    private Queue<Integer> waitingCars;
+    private Queue<int[]> waitingCars;
     private int maxQueueSize;
 
     //----Stats
@@ -38,12 +38,16 @@ public class CarWashState extends State {
     private int rejectedCars;
     private int carsInSystem;
     private int carIdCounter;
+    private String lastEventType;
+    private int lastCarId;
+    private boolean lastFast;
 
     //---- Random variables
     /** Random variabler, cars arrival,
      *  and the time it takes for a vehicle to get cleaned in either the
      *  fast or slow machine
      *  */
+
     private ExponentialRandomStream arrivalStream;
     private UniformRandomStream fastStream;     // generates uniform random time for fast machine
     private UniformRandomStream slowStream;     // generates unoform random time for slow machine
@@ -85,6 +89,21 @@ public class CarWashState extends State {
         this.carIdCounter = 0;
     }
 
+    public void setLastEvent(String eventType, int carId, boolean fast){
+        this.lastEventType = eventType;
+        this.lastCarId = carId;
+        this.lastFast = fast;
+    }
+
+    public String getLastEventType(){
+        return this.lastEventType;
+    }
+    public int getLastCarId(){
+        return this.lastCarId;
+    }
+    public boolean isLastFast(){
+        return this.lastFast;
+    }
     //---- Machine getter and setters
     /**
      * Checks the different machines for "Free room"
@@ -112,7 +131,7 @@ public class CarWashState extends State {
 
     //---- Queue acess
     /** @return The que of car id's*/
-    public Queue<Integer> getWaitingCars(){
+    public Queue<int[]> getWaitingCars(){
         return this.waitingCars;
     }
     /** @return returns max size queue allowed*/

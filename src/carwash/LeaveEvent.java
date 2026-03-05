@@ -9,7 +9,7 @@ public class LeaveEvent extends Event {
     //id of car leaving
     private int carId;
     //if true car left fast, if false, slow carwash
-    private Boolean fast;
+    private boolean fast;
     //time spent in carwash
     private double washTime;
 
@@ -37,9 +37,11 @@ public class LeaveEvent extends Event {
 
         if(!cws.getWaitingCars().isEmpty()){
             //serve nextCar in queue
-            int nextCarId = cws.getWaitingCars().poll();
+            int[] next = cws.getWaitingCars().poll();
+            int nextCarId = next[0];
 
-            double queueTime = cws.getTime() - 0;
+            double queueTime = cws.getTime() - next[1];
+
             cws.addQueueTime(queueTime);
 
             if(fast){
@@ -59,6 +61,8 @@ public class LeaveEvent extends Event {
                 cws.releaseSlow();
             }
         }
+
+        cws.setLastEvent("Leave",carId, fast);
     }
 
     /**@return carId related to leaving car event*/
