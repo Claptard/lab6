@@ -2,7 +2,9 @@ package simulator;
 
 public abstract class Event {
 
+    /**Simulated time the event will occur*/
     private double time;
+    /**Reference to the event queue, used so future events can be place correctly */
     protected EventQueue eventQueue;
 
     /**
@@ -16,7 +18,7 @@ public abstract class Event {
     }
 
     /**
-     * Getter for time
+     * Should return the events time
      * @return
      */
     public double getTime(){
@@ -27,7 +29,7 @@ public abstract class Event {
      * Kinda wierd not sure how these "unimplemented methods" work
      * but they should work sort of as "Place holders"
      * and when implemented makes alot more sense to who ever makes carwash
-     * @param state
+     * @param state     Current state of the simulator
      */
     public abstract void perform(State state);
 }
