@@ -7,6 +7,15 @@ import java.util.PriorityQueue;
 public class EventQueue {
     private PriorityQueue<Event> queue;
 
+
+    /**
+     *Why use this damn queue thing?..
+     * helps with out of sequence events, FIFO is abit sensitive
+     * and would not work for events.
+     * Example, 2 events can be out of order, slow carwash finishes after fast but
+     * the fast car entered first..... so it gets out of order, not great and can be dealt with
+     * but this is a simpler appoach where we can just validate with time and event.
+     */
     public EventQueue() {
         queue = new PriorityQueue<>(Comparator.comparing(Event::getTime));
     }
