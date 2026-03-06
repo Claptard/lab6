@@ -1,5 +1,7 @@
 package carwash;
 
+import carfactory.Car;
+import carfactory.CarFactory;
 import external.ExponentialRandomStream;
 import external.UniformRandomStream;
 import simulator.State;
@@ -37,11 +39,11 @@ public class CarWashState extends State {
     private double totalQueueTime;
     private int rejectedCars;
     private int carsInSystem;
-    private int carIdCounter;
     private String lastEventType;
     private int lastCarId;
     private boolean lastFast;
     private double idleSince;
+    private CarFactory carFactory;
 
     //---- Random variables
     /** Random variabler, cars arrival,
@@ -88,7 +90,7 @@ public class CarWashState extends State {
         this.totalQueueTime = 0.0;
         this.rejectedCars = 0;
         this.carsInSystem = 0;
-        this.carIdCounter = 0;
+        this.carFactory = new CarFactory();
     }
 
 
@@ -202,8 +204,8 @@ public class CarWashState extends State {
      * @return next Car id Starting from 0
      *
      * */
-    public int nextCarId(){
-        return this.carIdCounter++;
+    public Car nextCar(){
+        return carFactory.createCar();
     }
 
     //---- Random streams

@@ -43,7 +43,7 @@ public class CarWashView extends View{
         }
 
     }
-    public void printRow(CarWashState cws, String event, int carId, boolean fast){
+    private void printRow(CarWashState cws, String event, int carId, boolean fast){
         String time = format(cws.getTime());
         String id = carId >= 0 ? String.valueOf(carId) : "";
         String fastStr = String.valueOf(cws.getFreeFast());
@@ -58,7 +58,7 @@ public class CarWashView extends View{
                 idle, queueTime, queueSize, rejected);
 
     }
-    public void printSummary(CarWashState cws) {
+    private void printSummary(CarWashState cws) {
         System.out.println(SEPARATOR);
         System.out.printf("Total idle machine time: %s%n",
                 format (cws.getTotalIdleTime()));

@@ -1,4 +1,5 @@
 package carwash;
+import carfactory.Car;
 import simulator.Event;
 import simulator.EventQueue;
 import simulator.State;
@@ -26,7 +27,8 @@ public class ArriveEvent extends Event {
         cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
         cws.setLastEventTime(cws.getTime());
         //Assigning new carid
-        carId = cws.nextCarId();
+        Car car = cws.nextCar();
+        carId = car.getId();
 
         if(cws.getFreeFast() > 0){
             //a Fash machine is free and car can get free :) yiippiee

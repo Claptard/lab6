@@ -7,7 +7,6 @@ import external.ExponentialRandomStream;
 import external.UniformRandomStream;
 import simulator.EventQueue;
 import simulator.Simulator;
-import simulator.State;
 
 public class Main{
 
@@ -19,11 +18,18 @@ public class Main{
         int maxQueueSize = 5;
         double stopTime = 15.0;
 
+        //----Random variables
+        final int randSeed = 1234;
+        final int lambda = 2;
+        final double fastRand1 = 2.8;
+        final double fastRand2 = 4.6;
+        final double slowRand1 = 3.5;
+        final double slowRand2 = 6.7;
 
         //----- Random Streams
-        ExponentialRandomStream arrivalStream = new ExponentialRandomStream(2, 1234);
-        UniformRandomStream fastStream = new UniformRandomStream(2.8, 4.6, 1234);
-        UniformRandomStream slowStream = new UniformRandomStream(3.5, 6.7, 1234);
+        ExponentialRandomStream arrivalStream = new ExponentialRandomStream(lambda, randSeed);
+        UniformRandomStream fastStream = new UniformRandomStream(fastRand1, fastRand2, randSeed);
+        UniformRandomStream slowStream = new UniformRandomStream(slowRand1, slowRand2, randSeed);
 
         //---- linking up components----
 
