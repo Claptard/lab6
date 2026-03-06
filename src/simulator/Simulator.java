@@ -35,7 +35,7 @@ public class Simulator {
             Event event = eventQueue.next();
             state.setTime(event.getTime());
             event.perform(state);
-            state.notifyObserver();
+            state.notifyObservers();
         }
     }
 }

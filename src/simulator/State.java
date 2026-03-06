@@ -22,7 +22,7 @@ public class State {
      * Adding observers so they will be notified when events happen
      * @param view
      */
-    public void addObservers(View view){
+    public void addObserver(View view){
         observers.add(view);
     }
 
@@ -31,7 +31,7 @@ public class State {
      *----
      * But it should update the state
      */
-    public void notifyObserver(){
+    public void notifyObservers(){
         for(View view : observers){
             view.update(this);
         }

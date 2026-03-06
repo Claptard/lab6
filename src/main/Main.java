@@ -41,7 +41,7 @@ public class Main{
                 eventQueue);
 
         CarWashView view = new CarWashView();
-        state.addObservers(view);
+        state.addObserver(view);
 
         //---- printHeader before sim start
 
