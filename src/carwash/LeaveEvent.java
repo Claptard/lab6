@@ -35,14 +35,13 @@ public class LeaveEvent extends Event {
     public void perform(State state) {
         CarWashState cws = (CarWashState) state;
 
+        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
+        cws.setLastEventTime(cws.getTime());
         if(!cws.getWaitingCars().isEmpty()){
             //serve nextCar in queue
             double[] next = cws.getWaitingCars().poll();
             int nextCarId =(int) next[0];
 
-            double queueTime = cws.getTime() - next[1];
-
-            cws.addQueueTime(queueTime);
 
             if(fast){
                 double newWashTime = cws.nextFastWashTime();

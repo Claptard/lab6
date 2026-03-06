@@ -7,10 +7,14 @@ public class CarWashView extends View{
     private static final String SEPARATOR = "-----------------------------------------------------------";
 
     private String lastEvent = "Start";
-
+    /**
+     * Text formatering för att få den att passa in
+     * rtfm om du vill se vad det gör för skrev det 3 på natten så är glad att det
+     * faktiskt ser rätt ut.
+     * */
     public void printHeader(CarWashState state){
         System.out.println(SEPARATOR);
-        System.out.printf("%-10s %-8s %-4s %-4s %-10s %-10s %-10s %-8s%n",
+        System.out.printf("%-6s  %-8s %-4s %-4s %-4s %-10s %-10s %-10s %-8s%n",
                 "Time", "Event", "Id", "Fast", "Slow",
                 "IdleTime", "QueueTime", "QueueSize", "Rejected");
         System.out.println(SEPARATOR);

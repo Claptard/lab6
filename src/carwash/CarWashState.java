@@ -61,6 +61,7 @@ public class CarWashState extends State {
      */
     private EventQueue eventQueue;
 
+    private double lastEventTime = 0.0;
     //---- Time the machine/simulator stops
 
     private double stopTime;
@@ -90,12 +91,18 @@ public class CarWashState extends State {
         this.carIdCounter = 0;
     }
 
+
+    public double getLastEventTime() {
+        return lastEventTime;
+    }
+    public void setLastEventTime(double time) {
+        this.lastEventTime = time;
+    }
     public void setLastEvent(String eventType, int carId, boolean fast){
         this.lastEventType = eventType;
         this.lastCarId = carId;
         this.lastFast = fast;
     }
-
     public String getLastEventType(){
         return this.lastEventType;
     }

@@ -23,6 +23,8 @@ public class ArriveEvent extends Event {
     public void perform(State state){
         CarWashState cws = (CarWashState) state;
 
+        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
+        cws.setLastEventTime(cws.getTime());
         //Assigning new carid
         carId = cws.nextCarId();
 
