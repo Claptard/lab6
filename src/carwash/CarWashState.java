@@ -26,7 +26,7 @@ public class CarWashState extends State {
 
     //----queue variables
     /**Setting up waiting cars and the max quesize allowed*/
-    private Queue<int[]> waitingCars;
+    private Queue<double[]> waitingCars;
     private int maxQueueSize;
 
     //----Stats
@@ -41,6 +41,7 @@ public class CarWashState extends State {
     private String lastEventType;
     private int lastCarId;
     private boolean lastFast;
+    private double idleSince;
 
     //---- Random variables
     /** Random variabler, cars arrival,
@@ -110,6 +111,12 @@ public class CarWashState extends State {
      * and if there is it can occupy or release depending on the state
      * and action taken.
      * */
+    public double getIdleSince(){
+        return this.idleSince;
+    }
+    public void setIdleSince(double idleSince){
+        this.idleSince = idleSince;
+    }
     public int getFreeFast(){
         return this.freeFast;
     }
@@ -131,7 +138,7 @@ public class CarWashState extends State {
 
     //---- Queue acess
     /** @return The que of car id's*/
-    public Queue<int[]> getWaitingCars(){
+    public Queue<double[]> getWaitingCars(){
         return this.waitingCars;
     }
     /** @return returns max size queue allowed*/

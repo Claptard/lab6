@@ -24,6 +24,9 @@ public class StopEvent extends Event {
      * */
     @Override
     public void perform(State state) {
+        CarWashState cws = (CarWashState) state;
+        cws.setLastEvent("Stop",-1,false);
+
         state.setRunning(false);
     }
 }

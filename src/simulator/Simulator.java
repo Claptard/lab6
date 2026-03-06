@@ -30,6 +30,7 @@ public class Simulator {
      * We also call the abstract "Perfrom" method
      */
     public void run(){
+        state.setRunning(true);
         while(!eventQueue.isEmpty() && state.isRunning()){
             Event event = eventQueue.next();
             state.setTime(event.getTime());

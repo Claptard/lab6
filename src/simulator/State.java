@@ -22,7 +22,7 @@ public class State {
      * Adding observers so they will be notified when events happen
      * @param view
      */
-    public void addObserver(View view){
+    public void addObservers(View view){
         observers.add(view);
     }
 

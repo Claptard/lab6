@@ -33,7 +33,7 @@ public class CarWashView extends View{
                 printRow(cws,"Leave", cws.getLastCarId(),cws.isLastFast());
                 break;
             case "Stop":
-                printRow(cws, "Leave", -1, false);
+                printRow(cws, "Stop", -1, false);
                 printSummary(cws);
                 break;
         }
@@ -69,6 +69,6 @@ public class CarWashView extends View{
         System.out.printf("Rejected cars: %d%n ", cws.getRejectedCars());
     }
     private String format(double value){
-        return String.format("%.2f", value).replace('.','.');
+        return String.format("%.2f", value).replace('.',',');
     }
 }

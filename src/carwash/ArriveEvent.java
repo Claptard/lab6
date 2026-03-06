@@ -28,20 +28,26 @@ public class ArriveEvent extends Event {
 
         if(cws.getFreeFast() > 0){
             //a Fash machine is free and car can get free :) yiippiee
+            int totalFree = cws.getFreeFast() + cws.getFreeSlow();
+            cws.addIdleTime((cws.getTime() - cws.getIdleSince()) * totalFree);
             cws.occupyFast();
+            cws.setIdleSince(cws.getTime());
             cws.addCarInSystem();
             double washTime = cws.nextFastWashTime();
             eventQueue.add(new LeaveEvent(cws.getTime() + washTime, eventQueue, carId, true, washTime));
         }else if(cws.getFreeSlow() > 0){
             //a Slow machine is Free, small yipi :|
+            int totalFree = cws.getFreeSlow() + cws.getFreeFast();
+            cws.addIdleTime((cws.getTime() - cws.getIdleSince()) * totalFree);
             cws.occupySlow();
+            cws.setIdleSince(cws.getTime());
             cws.addCarInSystem();
             double washTime = cws.nextSlowWashTime();
             eventQueue.add(new LeaveEvent(cws.getTime() + washTime,eventQueue,carId, false, washTime));
         }else if(!cws.isQueueFull()){
             //Machines are full but gets placed in queue
             cws.addCarInSystem();
-            cws.getWaitingCars().add(new int[]{carId,(int) cws.getTime()});
+            cws.getWaitingCars().add(new double[]{carId,cws.getTime()});
         }else{
             //queue is full gets rejected
             cws.addRejectedCars();

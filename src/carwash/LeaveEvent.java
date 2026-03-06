@@ -37,8 +37,8 @@ public class LeaveEvent extends Event {
 
         if(!cws.getWaitingCars().isEmpty()){
             //serve nextCar in queue
-            int[] next = cws.getWaitingCars().poll();
-            int nextCarId = next[0];
+            double[] next = cws.getWaitingCars().poll();
+            int nextCarId =(int) next[0];
 
             double queueTime = cws.getTime() - next[1];
 
@@ -60,6 +60,7 @@ public class LeaveEvent extends Event {
             }else {
                 cws.releaseSlow();
             }
+            cws.setIdleSince(cws.getTime());
         }
 
         cws.setLastEvent("Leave",carId, fast);
