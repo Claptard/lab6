@@ -3,26 +3,42 @@ package carwash;
 import simulator.State;
 import simulator.View;
 
-public class CarWashView extends View{
-    private static final String SEPARATOR = "-----------------------------------------------------------";
+import java.util.Map;
 
-    private String lastEvent = "Start";
+public class CarWashView extends View{
+    private static final String SEPARATOR = "----------------------------------------";
+
     /** The format that rows are printed in */
-    private final String format = "%-6s  %-8s %-4s %-4s %-4s %-10s %-10s %-10s %-8s%n";
+    private final String head = "%-5s %-9s %-8s";
+    private final String format = head + " %-5s %-7s %-8s %-10s %-10s %-12s %-1s";
 
     /**
      * Prints the outputs header
+     * @param print_data print stats above the dashed line
      * */
-    public void printHeader(){
+    public void printHeader(Map<String, String> print_data){
+        System.out.println("Fast machines: " + print_data.get("fm"));
+        System.out.println("Slow machines: " + print_data.get("sm"));
+        System.out.println("Fast distribution: (" + print_data.get("flt") + ", " + print_data.get("fut") + ")");
+        System.out.println("Slow distribution: (" + print_data.get("slt") + ", " + print_data.get("sut") + ")");
+        System.out.println("Exponential distribution with lambda = " + print_data.get("lambda"));
+        System.out.println("seed = " + print_data.get("seed"));
+        System.out.println("Max Queue size: " + print_data.get("queuesize"));
+
         System.out.println(SEPARATOR);
         System.out.printf(format,
-                "Time", "Event", "Id", "Fast", "Slow",
+                "", "Time", "Event", "Id", "Fast", "Slow",
                 "IdleTime", "QueueTime", "QueueSize", "Rejected");
-        System.out.println(SEPARATOR);
+        System.out.println();
 
-        System.out.printf("%-10s %-8s%n", format(0.0), "Start");
+        System.out.printf(head, "", format(0.0), "Start");
+        System.out.println();
     }
 
+    /**
+     * Recieves an event to print
+     * @param state The CarWashState that contains the data needed
+     * */
     public void update(State state){
         CarWashState cws = (CarWashState) state;
 
@@ -32,19 +48,27 @@ public class CarWashView extends View{
 
         switch (eventType){
             case "Arrive":
-                printRow(cws,"Arrive", cws.getLastCarId(),cws.isLastFast());
+                printRow(cws,"Arrive", cws.getLastCarId());
                 break;
             case "Leave":
-                printRow(cws,"Leave", cws.getLastCarId(),cws.isLastFast());
+                printRow(cws,"Leave", cws.getLastCarId());
                 break;
             case "Stop":
-                printRow(cws, "Stop", -1, false);
+                printRow(cws, "Stop", -1);
                 printSummary(cws);
                 break;
         }
 
     }
-    private void printRow(CarWashState cws, String event, int carId, boolean fast){
+
+    /**
+     * Prints a row
+     * @param cws
+     * @param event
+     * @param carId
+     */
+    private void printRow(CarWashState cws, String event, int carId){
+        /* fetches print data */
         String time = format(cws.getTime());
         String id = carId >= 0 ? String.valueOf(carId) : "";
         String fastStr = String.valueOf(cws.getFreeFast());
@@ -55,9 +79,9 @@ public class CarWashView extends View{
         String rejected = String.valueOf(cws.getRejectedCars());
 
         System.out.printf(format,
-                time, event, id, fastStr, slowStr,
+                "", time, event, id, fastStr, slowStr,
                 idle, queueTime, queueSize, rejected);
-
+        System.out.println();
     }
 
     /**
@@ -78,7 +102,7 @@ public class CarWashView extends View{
         System.out.printf("Mean Queueing time %s%n", format(meanQueueTime));
         System.out.printf("Rejected cars: %d%n ", cws.getRejectedCars());
     }
-    private String format(double value){
+    private static String format(double value){
         return String.format("%.2f", value).replace('.',',');
     }
 }

@@ -8,6 +8,9 @@ import external.UniformRandomStream;
 import simulator.EventQueue;
 import simulator.Simulator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main{
 
     public static void main(String[] args) {
@@ -45,7 +48,19 @@ public class Main{
 
         //---- printHeader before sim start
 
-        view.printHeader();
+        Map<String, String> print_data = new HashMap<>();
+        print_data.put("fm", numFast + "");
+        print_data.put("sm", numSlow + "");
+        print_data.put("flt", fastRand1 + "");
+        print_data.put("fut", fastRand2 + "");
+        print_data.put("slt", slowRand1 + "");
+        print_data.put("sut", slowRand2 + "");
+        print_data.put("lambda", lambda + "");
+        print_data.put("seed", randSeed + "");
+        print_data.put("queuesize", maxQueueSize + "");
+
+
+        view.printHeader(print_data);
 
         //---- Schedule the first event and then starts Sim
 
