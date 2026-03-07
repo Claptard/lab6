@@ -7,14 +7,15 @@ public class CarWashView extends View{
     private static final String SEPARATOR = "-----------------------------------------------------------";
 
     private String lastEvent = "Start";
+    /** The format that rows are printed in */
+    private final String format = "%-6s  %-8s %-4s %-4s %-4s %-10s %-10s %-10s %-8s%n";
+
     /**
-     * Text formatering för att få den att passa in
-     * rtfm om du vill se vad det gör för skrev det 3 på natten så är glad att det
-     * faktiskt ser rätt ut.
+     * Prints the outputs header
      * */
-    public void printHeader(CarWashState state){
+    public void printHeader(){
         System.out.println(SEPARATOR);
-        System.out.printf("%-6s  %-8s %-4s %-4s %-4s %-10s %-10s %-10s %-8s%n",
+        System.out.printf(format,
                 "Time", "Event", "Id", "Fast", "Slow",
                 "IdleTime", "QueueTime", "QueueSize", "Rejected");
         System.out.println(SEPARATOR);
@@ -53,11 +54,16 @@ public class CarWashView extends View{
         String queueSize = String.valueOf(cws.getQueueSize());
         String rejected = String.valueOf(cws.getRejectedCars());
 
-        System.out.printf("%6s  %-8s %-4s %-4s %-4s %-10s %-10s %-10s %-8s%n",
+        System.out.printf(format,
                 time, event, id, fastStr, slowStr,
                 idle, queueTime, queueSize, rejected);
 
     }
+
+    /**
+     * Prints the after the simultion is complete. It prints the overall stats.
+     * @param cws
+     */
     private void printSummary(CarWashState cws) {
         System.out.println(SEPARATOR);
         System.out.printf("Total idle machine time: %s%n",

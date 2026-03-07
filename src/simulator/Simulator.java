@@ -6,7 +6,7 @@ package simulator;
  */
 
 public class Simulator {
-    /** the que for future events being performed */
+    /** the Queue for future events being performed */
     private EventQueue eventQueue;
     /** Current state */
     private State state;
@@ -22,12 +22,15 @@ public class Simulator {
     }
 
     /**
-     * core loop.
+     * The core loop that runs the simulation
      *
-     * The "Event" chekc the queue for the next event.
+     * The "Event" check the queue for the next event.
      * The state obj gets the time from the new event,
      *
      * We also call the abstract "Perfrom" method
+     *
+     * State will notify the observers when the program is finished,
+     * as to not print after a stop Event is called
      */
     public void run(){
         state.setRunning(true);

@@ -45,7 +45,7 @@ public class Main{
 
         //---- printHeader before sim start
 
-        view.printHeader(state);
+        view.printHeader();
 
         //---- Schedule the first event and then starts Sim
 

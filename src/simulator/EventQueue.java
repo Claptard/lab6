@@ -9,7 +9,7 @@ public class EventQueue {
 
 
     /**
-     *Why use this damn queue thing?..
+     * Why use this damn queue thing?..
      * helps with out of sequence events, FIFO is abit sensitive
      * and would not work for events.
      * Example, 2 events can be out of order, slow carwash finishes after fast but
@@ -33,16 +33,16 @@ public class EventQueue {
      * **debug inorder to check queue
      * #######################################
      * @return
-     */
+
     public Event peek(){
         return queue.peek();
     }
+     */
 
     /**
      * Retrives Queue item and removes it from the queue
      * if list empty returns null
      *
-     * Shouuuuld not crash right?
      * @return
      */
     public Event next(){
