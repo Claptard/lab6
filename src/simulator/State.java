@@ -3,7 +3,7 @@ package simulator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class State {
+public class State implements Cloneable{
     private double time;
     private boolean running;
     private List<View> observers;
@@ -31,10 +31,18 @@ public class State {
      *----
      * But it should update the state
      */
-    public void notifyObservers(){
+    public void notifyObservers(State clone){
         //System.out.println("size " + observers.size());
         for(View view : observers){
-            view.update(this);
+            view.update(clone);
+        }
+    }
+
+    public State clone_class() {
+        try {
+            return (State) this.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
         }
     }
 

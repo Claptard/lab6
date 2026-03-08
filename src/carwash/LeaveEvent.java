@@ -32,9 +32,14 @@ public class LeaveEvent extends Event {
         this.washTime = washtime;
     }
 
-    //asd
     public void perform(State state) {
         CarWashState cws = (CarWashState) state;
+        boolean realease_car = false;
+
+        cws.setLastEvent("Leave", carId, fast);
+        state.notifyObservers(state.clone_class());
+        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
+        cws.setLastEventTime(cws.getTime());
 
         if(!cws.getWaitingCars().isEmpty()){
             //serve nextCar in queue
@@ -52,18 +57,17 @@ public class LeaveEvent extends Event {
                                                 eventQueue,nextCarId,false,newWashTime));
             }
         } else{
-            //no Cars Waiting for wash carwash becomes Idle
+            realease_car = true;
+            //no Cars Waiting for wash carwash becomes Idl
+            cws.setIdleSince(cws.getTime());
+        }
+        if (realease_car == true) {
             if (fast) {
                 cws.releaseFast();
             }else {
                 cws.releaseSlow();
             }
-            cws.setIdleSince(cws.getTime());
         }
-        cws.setLastEvent("Leave", carId, fast);
-        state.notifyObservers();
-        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
-        cws.setLastEventTime(cws.getTime());
     }
 
     /**@return carId related to leaving car event*/
