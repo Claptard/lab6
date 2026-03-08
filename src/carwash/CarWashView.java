@@ -6,6 +6,9 @@ import simulator.View;
 public class CarWashView extends View{
     private static final String SEPARATOR = "-----------------------------------------------------------";
 
+    EventType evType;
+
+
     private String lastEvent = "Start";
     /**
      * Text formatering för att få den att passa in
@@ -25,18 +28,18 @@ public class CarWashView extends View{
     public void update(State state){
         CarWashState cws = (CarWashState) state;
 
-        String eventType = cws.getLastEventType();
+        EventType eventType = cws.getLastEventType();
 
         if(eventType == null) return;
 
         switch (eventType){
-            case "Arrive":
+            case ARRIVE:
                 printRow(cws,"Arrive", cws.getLastCarId(),cws.isLastFast());
                 break;
-            case "Leave":
+            case LEAVE:
                 printRow(cws,"Leave", cws.getLastCarId(),cws.isLastFast());
                 break;
-            case "Stop":
+            case STOP:
                 printRow(cws, "Stop", -1, false);
                 printSummary(cws);
                 break;

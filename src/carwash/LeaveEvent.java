@@ -62,7 +62,7 @@ public class LeaveEvent extends Event {
             cws.setIdleSince(cws.getTime());
         }
 
-        cws.setLastEvent("Leave",carId, fast);
+        cws.setLastEvent(EventType.LEAVE,carId, fast);
     }
 
     /**@return carId related to leaving car event*/

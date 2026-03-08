@@ -6,7 +6,6 @@ import simulator.State;
 public class ArriveEvent extends Event {
 
     private int carId;
-
     /**
      * Creates new event for arrivals, at the time of arrival
      *
@@ -60,7 +59,7 @@ public class ArriveEvent extends Event {
         double nextArrival = cws.getTime() + cws.nextArrivalTime();
         eventQueue.add(new ArriveEvent(nextArrival,eventQueue));
 
-        cws.setLastEvent("Arrive",carId,false);
+        cws.setLastEvent(EventType.ARRIVE,carId,false);
     }
 
     /**Getter for carID
