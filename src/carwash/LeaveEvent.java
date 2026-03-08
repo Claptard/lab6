@@ -35,12 +35,10 @@ public class LeaveEvent extends Event {
     public void perform(State state) {
         CarWashState cws = (CarWashState) state;
 
-        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
-        cws.setLastEventTime(cws.getTime());
         if(!cws.getWaitingCars().isEmpty()){
             //serve nextCar in queue
             double[] next = cws.getWaitingCars().poll();
-            int nextCarId =(int) next[0];
+            int nextCarId = (int) next[0];
 
 
             if(fast){
@@ -61,8 +59,10 @@ public class LeaveEvent extends Event {
             }
             cws.setIdleSince(cws.getTime());
         }
-
         cws.setLastEvent("Leave",carId, fast);
+        state.notifyObservers();
+        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
+        cws.setLastEventTime(cws.getTime());
     }
 
     /**@return carId related to leaving car event*/

@@ -32,6 +32,7 @@ public class State {
      * But it should update the state
      */
     public void notifyObservers(){
+        //System.out.println("size " + observers.size());
         for(View view : observers){
             view.update(this);
         }

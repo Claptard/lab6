@@ -10,40 +10,27 @@ import simulator.EventQueue;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * Probably the largest implementation so far but its for our specific use case
- * and need alot of variables
- *
- * The mor code i write the more it looks like a damn nightmare
- *
- * if labledare asks to clean this shit, im not doing it....
- */
-
 public class CarWashState extends State {
-    //----Machines available
-
     /** number of free carwashes*/
     private int freeFast;
     private int freeSlow;
 
-    //----queue variables
     /**Setting up waiting cars and the max quesize allowed*/
-    private Queue<double[]> waitingCars;
+    private Queue<double[]> waitingCars = new LinkedList<>();
     private int maxQueueSize;
 
-    //----Stats
     /** so, quite alot of different variables but mostly just "Keep time
      * or just keep count,
      * aswell as the carIdCounter which the names kinda explains...*/
-    private double totalIdleTime;
-    private double totalQueueTime;
-    private int rejectedCars;
-    private int carsInSystem;
+    private double totalIdleTime = 0.0;
+    private double totalQueueTime = 0.0;
+    private int rejectedCars = 0;
+    private int carsInSystem = 0;
     private String lastEventType;
     private int lastCarId;
     private boolean lastFast;
     private double idleSince;
-    private CarFactory carFactory;
+    private CarFactory carFactory = new CarFactory();
 
     //---- Random variables
     /** Random variabler, cars arrival,
@@ -64,8 +51,6 @@ public class CarWashState extends State {
     private EventQueue eventQueue;
 
     private double lastEventTime = 0.0;
-    //---- Time the machine/simulator stops
-
     private double stopTime;
 
     //---- Constructor
@@ -85,17 +70,13 @@ public class CarWashState extends State {
         this.fastStream = fastStream;
         this.slowStream = slowStream;
         this.eventQueue = eventQueue;
-        this.waitingCars = new LinkedList<>();
-        this.totalIdleTime = 0.0;
-        this.totalQueueTime = 0.0;
-        this.rejectedCars = 0;
-        this.carsInSystem = 0;
-        this.carFactory = new CarFactory();
     }
 
-
-    public double getLastEventTime() {
-        return lastEventTime;
+    /**
+     * Setters
+     */
+    public void setIdleSince(double idleSince){
+        this.idleSince = idleSince;
     }
     public void setLastEventTime(double time) {
         this.lastEventTime = time;
@@ -105,26 +86,24 @@ public class CarWashState extends State {
         this.lastCarId = carId;
         this.lastFast = fast;
     }
+
+    /**
+     * Getters
+     */
+    public double getLastEventTime() {
+        return lastEventTime;
+    }
     public String getLastEventType(){
         return this.lastEventType;
     }
     public int getLastCarId(){
         return this.lastCarId;
     }
-    public boolean isLastFast(){
-        return this.lastFast;
+    public int getCarsInSystem(){
+        return this.carsInSystem;
     }
-    //---- Machine getter and setters
-    /**
-     * Checks the different machines for "Free room"
-     * and if there is it can occupy or release depending on the state
-     * and action taken.
-     * */
     public double getIdleSince(){
         return this.idleSince;
-    }
-    public void setIdleSince(double idleSince){
-        this.idleSince = idleSince;
     }
     public int getFreeFast(){
         return this.freeFast;
@@ -132,6 +111,32 @@ public class CarWashState extends State {
     public int getFreeSlow(){
         return this.freeSlow;
     }
+    public int getMaxQueueSize(){
+        return this.maxQueueSize;
+    }
+    public int getQueueSize(){
+        return this.waitingCars.size();
+    }
+    public double getTotalIdleTime(){
+        return this.totalIdleTime;
+    }
+    public Queue<double[]> getWaitingCars(){
+        return this.waitingCars;
+    }
+    public double getTotalQueueTime(){
+        return this.totalQueueTime;
+    }
+    public int getRejectedCars(){
+        return this.rejectedCars;
+    }
+    public double getStopTime(){
+        return this.stopTime;
+    }
+    /**
+     * Checks the different machines for "Free room"
+     * and if there is it can occupy or release depending on the state
+     * and action taken.
+     * */
     public void occupyFast(){
         this.freeFast--;
     }
@@ -146,18 +151,6 @@ public class CarWashState extends State {
     }
 
     //---- Queue acess
-    /** @return The que of car id's*/
-    public Queue<double[]> getWaitingCars(){
-        return this.waitingCars;
-    }
-    /** @return returns max size queue allowed*/
-    public int getMaxQueueSize(){
-        return this.maxQueueSize;
-    }
-    /** @return current queue "amount of cars" */
-    public int getQueueSize(){
-        return this.waitingCars.size();
-    }
     /** @return true if queue is full, currently shouldnt be allowed to
      * "overflow" but hey.... better safe then sorry..
      * */
@@ -170,32 +163,17 @@ public class CarWashState extends State {
     public void addIdleTime(double time){
         this.totalIdleTime += time;
     }
-    /** @return current idleTime*/
-    public double getTotalIdleTime(){
-        return this.totalIdleTime;
-    }
     /** Adds to the current Queue Time*/
     public void addQueueTime(double time){
         this.totalQueueTime += time;
-    }
-    /**Total time for the queue*/
-    public double getTotalQueueTime(){
-        return this.totalQueueTime;
     }
     /**Im really tryign to write comments on all of these but common?*/
     public void addRejectedCars(){
         this.rejectedCars++;
     }
-    /**GEtter*/
-    public int getRejectedCars(){
-        return this.rejectedCars;
-    }
     /** adds car into the system*/
     public void addCarInSystem(){
         this.carsInSystem++;
-    }
-    public int getCarsInSystem(){
-        return this.carsInSystem;
     }
 
     //---- car id Stuff
@@ -218,18 +196,5 @@ public class CarWashState extends State {
     }
     public double nextSlowWashTime(){
         return slowStream.next();
-    }
-
-    //---- Event queue
-    /**@return THE shared event queue*/
-    public EventQueue getEventQueue(){
-        return eventQueue;
-    }
-
-    //---- Stop timeer
-
-    /**@return The simulators stopTime */
-    public double getStopTime(){
-        return this.stopTime;
     }
 }

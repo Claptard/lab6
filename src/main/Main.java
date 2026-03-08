@@ -14,8 +14,6 @@ import java.util.Map;
 public class Main{
 
     public static void main(String[] args) {
-
-
         int numFast = 2;
         int numSlow = 2;
         int maxQueueSize = 5;

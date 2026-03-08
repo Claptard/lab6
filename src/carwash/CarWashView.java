@@ -45,7 +45,6 @@ public class CarWashView extends View{
         String eventType = cws.getLastEventType();
 
         if(eventType == null) return;
-
         switch (eventType){
             case "Arrive":
                 printRow(cws,"Arrive", cws.getLastCarId());
@@ -58,7 +57,6 @@ public class CarWashView extends View{
                 printSummary(cws);
                 break;
         }
-
     }
 
     /**

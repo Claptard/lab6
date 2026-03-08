@@ -38,7 +38,9 @@ public class Simulator {
             Event event = eventQueue.next();
             state.setTime(event.getTime());
             event.perform(state);
-            state.notifyObservers();
+            //state.notifyObservers();
+            //System.out.println("notify thread: " + Thread.currentThread().getName());
+            //System.out.println("notified");
         }
     }
 }

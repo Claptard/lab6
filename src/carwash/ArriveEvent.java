@@ -23,11 +23,16 @@ public class ArriveEvent extends Event {
      * */
     public void perform(State state){
         CarWashState cws = (CarWashState) state;
-        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
-        cws.setLastEventTime(cws.getTime());
         //Assigning new carid
         Car car = cws.nextCar();
         carId = car.getId();
+
+        cws.setLastEvent("Arrive", carId, false);
+        state.notifyObservers();
+        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
+        cws.setLastEventTime(cws.getTime());
+
+        //System.out.println("SETTING ARRIVE");
 
         if(cws.getFreeFast() > 0){
             //a Fash machine is free and car can get free :) yiippiee
@@ -59,7 +64,6 @@ public class ArriveEvent extends Event {
         double nextArrival = cws.getTime() + cws.nextArrivalTime();
         eventQueue.add(new ArriveEvent(nextArrival,eventQueue));
 
-        cws.setLastEvent("Arrive",carId,false);
     }
 
     /**Getter for carID
