@@ -23,22 +23,20 @@ public class ArriveEvent extends Event {
      * */
     public void perform(State state){
         CarWashState cws = (CarWashState) state;
+        String occupy = "";
+        boolean reject = false;
+        boolean add_car = false;
         //Assigning new carid
+        int prev_id = carId;
         Car car = cws.nextCar();
         carId = car.getId();
-
-        cws.setLastEvent("Arrive", carId, false);
-        state.notifyObservers();
-        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
-        cws.setLastEventTime(cws.getTime());
-
-        //System.out.println("SETTING ARRIVE");
 
         if(cws.getFreeFast() > 0){
             //a Fash machine is free and car can get free :) yiippiee
             int totalFree = cws.getFreeFast() + cws.getFreeSlow();
             cws.addIdleTime((cws.getTime() - cws.getIdleSince()) * totalFree);
-            cws.occupyFast();
+            occupy = "fast";
+            //cws.occupyFast();
             cws.setIdleSince(cws.getTime());
             cws.addCarInSystem();
             double washTime = cws.nextFastWashTime();
@@ -47,7 +45,7 @@ public class ArriveEvent extends Event {
             //a Slow machine is Free, small yipi :|
             int totalFree = cws.getFreeSlow() + cws.getFreeFast();
             cws.addIdleTime((cws.getTime() - cws.getIdleSince()) * totalFree);
-            cws.occupySlow();
+            occupy = "slow";
             cws.setIdleSince(cws.getTime());
             cws.addCarInSystem();
             double washTime = cws.nextSlowWashTime();
@@ -55,11 +53,29 @@ public class ArriveEvent extends Event {
         }else if(!cws.isQueueFull()){
             //Machines are full but gets placed in queue
             cws.addCarInSystem();
-            cws.getWaitingCars().add(new double[]{carId,cws.getTime()});
+            add_car = true;
         }else{
             //queue is full gets rejected
+            reject = true;
+        }
+
+        cws.setLastEvent("Arrive", carId, false);
+        state.notifyObservers();
+        if (occupy.equals("fast")) {
+            cws.occupyFast();
+        } else if (occupy.equals("slow")) {
+            cws.occupySlow();
+        }
+
+        if (reject == true) {
             cws.addRejectedCars();
         }
+        if (add_car == true) {
+            cws.getWaitingCars().add(new double[]{prev_id,cws.getTime()});
+        }
+
+        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
+        cws.setLastEventTime(cws.getTime());
 
         double nextArrival = cws.getTime() + cws.nextArrivalTime();
         eventQueue.add(new ArriveEvent(nextArrival,eventQueue));
