@@ -58,6 +58,7 @@ public class ArriveEvent extends Event {
             //queue is full gets rejected
             reject = true;
         }
+        //asd
 
         cws.setLastEvent("Arrive", carId, false);
         state.notifyObservers();
