@@ -60,7 +60,7 @@ public class LeaveEvent extends Event {
             }
             cws.setIdleSince(cws.getTime());
         }
-        cws.setLastEvent("Leave",carId, fast);
+        cws.setLastEvent("Leave", carId, fast);
         state.notifyObservers();
         cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
         cws.setLastEventTime(cws.getTime());

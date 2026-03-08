@@ -30,6 +30,7 @@ public class ArriveEvent extends Event {
         int prev_id = carId;
         Car car = cws.nextCar();
         carId = car.getId();
+        double qt = (cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize();
 
         if(cws.getFreeFast() > 0){
             //a Fash machine is free and car can get free :) yiippiee
@@ -75,7 +76,7 @@ public class ArriveEvent extends Event {
             cws.getWaitingCars().add(new double[]{prev_id,cws.getTime()});
         }
 
-        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
+        cws.addQueueTime(qt);
         cws.setLastEventTime(cws.getTime());
 
         double nextArrival = cws.getTime() + cws.nextArrivalTime();
