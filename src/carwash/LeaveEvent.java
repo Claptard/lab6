@@ -34,7 +34,6 @@ public class LeaveEvent extends Event {
 
     public void perform(State state) {
         CarWashState cws = (CarWashState) state;
-        boolean realease_car = false;
 
         cws.setLastEvent("Leave", carId, fast);
         state.notifyObservers(state.clone_class());
@@ -45,6 +44,7 @@ public class LeaveEvent extends Event {
             //serve nextCar in queue
             double[] next = cws.getWaitingCars().poll();
             int nextCarId = (int) next[0];
+            //System.out.println("n_Id " + nextCarId);
 
 
             if(fast){
@@ -57,16 +57,13 @@ public class LeaveEvent extends Event {
                                                 eventQueue,nextCarId,false,newWashTime));
             }
         } else{
-            realease_car = true;
-            //no Cars Waiting for wash carwash becomes Idl
-            cws.setIdleSince(cws.getTime());
-        }
-        if (realease_car == true) {
             if (fast) {
                 cws.releaseFast();
             }else {
                 cws.releaseSlow();
             }
+            //no Cars Waiting for wash carwash becomes Idl
+            cws.setIdleSince(cws.getTime());
         }
     }
 

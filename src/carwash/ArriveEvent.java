@@ -73,7 +73,7 @@ public class ArriveEvent extends Event {
             cws.addRejectedCars();
         }
         if (add_car == true) {
-            cws.getWaitingCars().add(new double[]{prev_id,cws.getTime()});
+            cws.getWaitingCars().add(new double[]{carId,cws.getTime()});
         }
 
         cws.addQueueTime(qt);
