@@ -1,5 +1,7 @@
 package carfactory;
-
+/**
+ * @author Oscar Algotsson
+ */
 public class CarFactory {
     private int idCounter = 0;
 

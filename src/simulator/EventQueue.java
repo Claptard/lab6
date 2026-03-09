@@ -3,7 +3,9 @@ package simulator;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
-
+/**
+ * @author Oscar Algotsson
+ */
 public class EventQueue {
     private PriorityQueue<Event> queue;
 

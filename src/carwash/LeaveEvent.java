@@ -3,7 +3,9 @@ package carwash;
 import simulator.Event;
 import simulator.EventQueue;
 import simulator.State;
-
+/**
+ * @author Oskar Borg
+ */
 public class LeaveEvent extends Event {
 
     //id of car leaving
@@ -35,9 +37,10 @@ public class LeaveEvent extends Event {
     public void perform(State state) {
         CarWashState cws = (CarWashState) state;
 
+        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
         cws.setLastEvent(EventType.LEAVE, carId, fast);
         state.notifyObservers(state.clone_class());
-        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
+
         cws.setLastEventTime(cws.getTime());
 
         if(!cws.getWaitingCars().isEmpty()){

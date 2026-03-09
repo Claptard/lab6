@@ -9,7 +9,9 @@ import simulator.EventQueue;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
+/**
+ * @author Oliver Horvath, Oscar Algotsson
+ */
 public class CarWashState extends State {
     /** number of free carwashes*/
     private int freeFast;

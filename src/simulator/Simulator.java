@@ -4,7 +4,9 @@ package simulator;
  * Om något är wierd ligger det med största sanolikhet i grund här...
  *
  */
-
+/**
+ * @author Oscar Algotsson, Oliver Horvath
+ */
 public class Simulator {
     /** the Queue for future events being performed */
     private EventQueue eventQueue;

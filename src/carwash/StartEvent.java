@@ -3,6 +3,9 @@ package carwash;
 import simulator.Event;
 import simulator.EventQueue;
 import simulator.State;
+/**
+ * @author Oskar Borg, Oscar Algotsson
+ */
 public class StartEvent extends Event {
     /**
      * pretty straight forward, calls "mother constructor"

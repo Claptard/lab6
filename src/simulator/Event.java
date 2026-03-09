@@ -1,5 +1,7 @@
 package simulator;
-
+/**
+ * @author Oliver Horvath
+ */
 public abstract class Event {
 
     /**Simulated time the event will occur*/

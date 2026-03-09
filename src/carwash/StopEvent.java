@@ -1,12 +1,11 @@
 package carwash;
 
-
 import simulator.Event;
 import simulator.EventQueue;
 import simulator.State;
 /**
- * lowkey rätt så simpelt för en gångs skull
- * */
+ * @author Oskar Borg
+ */
 public class StopEvent extends Event {
 
     /**Constructor is basically only inherited
@@ -26,9 +25,9 @@ public class StopEvent extends Event {
     public void perform(State state) {
         CarWashState cws = (CarWashState) state;
         cws.setLastEvent(EventType.STOP,-1,false);
+        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getMaxQueueSize());
         state.notifyObservers(state.clone_class());
 
-        cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getMaxQueueSize());
         cws.setLastEventTime(cws.getTime());
         state.setRunning(false);
     }

@@ -1,5 +1,7 @@
 package simulator;
-
+/**
+ * @author Oliver Horvath
+ */
 public abstract class View {
     /**
      * Called whenever an event happens, implemented by subclasses

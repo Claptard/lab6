@@ -5,6 +5,9 @@ import simulator.View;
 
 import java.util.Map;
 
+/**
+ * @author Oliver Horvath
+ */
 public class CarWashView extends View{
     private static final String SEPARATOR = "----------------------------------------";
 
@@ -16,6 +19,7 @@ public class CarWashView extends View{
      * Prints the outputs header
      * @param print_data print stats above the dashed line
      * */
+
     public void printHeader(Map<String, String> print_data){
         System.out.println("Fast machines: " + print_data.get("fm"));
         System.out.println("Slow machines: " + print_data.get("sm"));

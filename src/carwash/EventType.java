@@ -1,5 +1,7 @@
 package carwash;
-
+/**
+ * @author Oscar Algotsson
+ */
 public enum EventType {
     START(0),ARRIVE(1),LEAVE(2),STOP(3);
 

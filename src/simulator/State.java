@@ -2,7 +2,9 @@ package simulator;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Oscar Algotsson
+ */
 public class State implements Cloneable{
     private double time;
     private boolean running;

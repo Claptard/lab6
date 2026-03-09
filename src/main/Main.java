@@ -10,7 +10,9 @@ import simulator.Simulator;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @author Oskar Borg, Oliver Horvath, Oscar Algotsson
+ */
 public class Main{
 
     public static void main(String[] args) {
@@ -21,7 +23,7 @@ public class Main{
 
         //----Random variables
         final int randSeed = 1234;
-        final int lambda = 2;
+        final double lambda = 2.0;
         final double fastRand1 = 2.8;
         final double fastRand2 = 4.6;
         final double slowRand1 = 3.5;

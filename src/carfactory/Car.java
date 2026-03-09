@@ -1,5 +1,7 @@
 package carfactory;
-
+/**
+ * @author Oscar Algotsson
+ */
 public class Car {
     private int id;
 

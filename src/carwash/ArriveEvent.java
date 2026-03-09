@@ -3,6 +3,10 @@ import carfactory.Car;
 import simulator.Event;
 import simulator.EventQueue;
 import simulator.State;
+
+/**
+ * @author Oskar Borg
+ */
 public class ArriveEvent extends Event {
 
     private int carId;
@@ -60,7 +64,7 @@ public class ArriveEvent extends Event {
             reject = true;
         }
         //asd
-
+        cws.addQueueTime(qt);
         cws.setLastEvent(EventType.ARRIVE, carId, false);
         state.notifyObservers(state.clone_class());
         if (occupy.equals("fast")) {
@@ -76,7 +80,6 @@ public class ArriveEvent extends Event {
             cws.getWaitingCars().add(new double[]{carId,cws.getTime()});
         }
 
-        cws.addQueueTime(qt);
         cws.setLastEventTime(cws.getTime());
 
         double nextArrival = cws.getTime() + cws.nextArrivalTime();
