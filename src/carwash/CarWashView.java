@@ -42,17 +42,17 @@ public class CarWashView extends View{
     public void update(State state){
         CarWashState cws = (CarWashState) state;
 
-        String eventType = cws.getLastEventType();
+        EventType eventType = cws.getLastEventType();
 
         if(eventType == null) return;
         switch (eventType){
-            case "Arrive":
+            case EventType.ARRIVE:
                 printRow(cws,"Arrive", cws.getLastCarId());
                 break;
-            case "Leave":
+            case EventType.LEAVE:
                 printRow(cws,"Leave", cws.getLastCarId());
                 break;
-            case "Stop":
+            case EventType.STOP:
                 printRow(cws, "Stop", -1);
                 printSummary(cws);
                 break;

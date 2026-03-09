@@ -35,7 +35,7 @@ public class LeaveEvent extends Event {
     public void perform(State state) {
         CarWashState cws = (CarWashState) state;
 
-        cws.setLastEvent("Leave", carId, fast);
+        cws.setLastEvent(EventType.LEAVE, carId, fast);
         state.notifyObservers(state.clone_class());
         cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getQueueSize());
         cws.setLastEventTime(cws.getTime());

@@ -26,7 +26,7 @@ public class CarWashState extends State {
     private double totalQueueTime = 0.0;
     private int rejectedCars = 0;
     private int carsInSystem = 0;
-    private String lastEventType;
+    private EventType lastEventType;
     private int lastCarId;
     private boolean lastFast;
     private double idleSince;
@@ -81,7 +81,7 @@ public class CarWashState extends State {
     public void setLastEventTime(double time) {
         this.lastEventTime = time;
     }
-    public void setLastEvent(String eventType, int carId, boolean fast){
+    public void setLastEvent(EventType eventType, int carId, boolean fast){
         this.lastEventType = eventType;
         this.lastCarId = carId;
         this.lastFast = fast;
@@ -93,7 +93,7 @@ public class CarWashState extends State {
     public double getLastEventTime() {
         return lastEventTime;
     }
-    public String getLastEventType(){
+    public EventType getLastEventType(){
         return this.lastEventType;
     }
     public int getLastCarId(){

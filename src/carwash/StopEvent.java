@@ -25,7 +25,7 @@ public class StopEvent extends Event {
     @Override
     public void perform(State state) {
         CarWashState cws = (CarWashState) state;
-        cws.setLastEvent("Stop",-1,false);
+        cws.setLastEvent(EventType.STOP,-1,false);
         state.notifyObservers(state.clone_class());
 
         cws.addQueueTime((cws.getTime() - cws.getLastEventTime()) * cws.getMaxQueueSize());

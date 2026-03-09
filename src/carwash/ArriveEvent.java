@@ -61,7 +61,7 @@ public class ArriveEvent extends Event {
         }
         //asd
 
-        cws.setLastEvent("Arrive", carId, false);
+        cws.setLastEvent(EventType.ARRIVE, carId, false);
         state.notifyObservers(state.clone_class());
         if (occupy.equals("fast")) {
             cws.occupyFast();
